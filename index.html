@@ -982,9 +982,18 @@
 
                 <div class="whatsapp-section" id="whatsappSection" style="display: none;">
                     <h4>📱 Stay Connected</h4>
-                    <p>We'll send you a WhatsApp message when NUMA is ready for testing. Your number will only be used for NUMA updates - no spam, ever!</p>
-                    <input type="tel" class="input-field" name="whatsapp_number" placeholder="WhatsApp number (optional)" style="margin-top: 10px;">
-                    <p style="font-size: 12px; color: #888; margin-top: 8px;">Format: +234XXXXXXXXXX (include country code)</p>
+                    <p>We'll contact you when NUMA is ready. Your information will only be used for NUMA updates - no spam, ever!</p>
+                    
+                    <div style="margin-top: 15px;">
+                        <label class="question-label" style="margin-bottom: 8px; font-size: 14px;">Email Address *</label>
+                        <input type="email" class="input-field" name="email_address" placeholder="your.email@example.com" required>
+                    </div>
+                    
+                    <div style="margin-top: 15px;">
+                        <label class="question-label" style="margin-bottom: 8px; font-size: 14px;">WhatsApp Number (Optional)</label>
+                        <input type="tel" class="input-field" name="whatsapp_number" placeholder="WhatsApp number">
+                        <p style="font-size: 12px; color: #888; margin-top: 8px;">Format: +234XXXXXXXXXX (include country code)</p>
+                    </div>
                 </div>
             </div>
 
@@ -1193,6 +1202,15 @@
             if (currentSection === 7) {
                 if (!formData['one_thing_easier'] || !formData['one_thing_easier'].trim()) {
                     requiredFields.push('one_thing_easier');
+                }
+                
+                // Check if contact section is visible and email is required
+                const whatsappSection = document.getElementById('whatsappSection');
+                if (whatsappSection.style.display === 'block') {
+                    const emailField = document.querySelector('input[name="email_address"]');
+                    if (!emailField.value || !emailField.value.trim()) {
+                        requiredFields.push('email_address');
+                    }
                 }
             }
 
